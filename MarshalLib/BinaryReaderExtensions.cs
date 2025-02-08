@@ -8,7 +8,7 @@ internal static class BinaryReaderExtensions
 {
     public static string ReadCString(this BinaryReader binaryReader)
     {
-        var bytes = new List<byte>();
+        var bytes = new List<byte>(16);
         byte b;
         while ((b = binaryReader.ReadByte()) != 0)
         {

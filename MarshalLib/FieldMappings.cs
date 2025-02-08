@@ -2,13 +2,13 @@ namespace MarshalLib;
 
 public class FieldMappings
 {
-    private List<FieldDescriptor> _fields = new();
+    private Dictionary<ushort, FieldDescriptor> _fields = new();
     
     public void Read(Stream stream)
     {
         using var reader = new BinaryReader(stream);
 
-        UInt16 index = 0;
+        ushort index = 0;
         
         while (true)
         {
@@ -19,30 +19,14 @@ public class FieldMappings
             {
                 Header = reader.ReadUInt16BigEndian(),
                 Type = (FieldType)reader.ReadUInt16BigEndian(),
-                Name = reader.ReadCString(),
-                Index = index
+                Name = reader.ReadCString()
             };
             
-            _fields.Add(field);
+            _fields.Add(index, field);
             index++;
         }
-        
-        _fields.AddRange([
-            new()
-            {
-                Type = FieldType.Custom,
-                Name = "KEY",
-                Index = 3730
-            },
-            new()
-            {
-                Type = FieldType.Custom,
-                Name = "IV",
-                Index = 3731
-            }
-        ]);
     }
     
-    public FieldDescriptor? Get(UInt16 index) =>
-        _fields.FirstOrDefault(f => f.Index == index);
+    public FieldDescriptor? Get(ushort index) =>
+        _fields.GetValueOrDefault(index);
 }

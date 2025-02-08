@@ -24,8 +24,9 @@ public static class MarshalSerializer
         }
         
         var fieldCount = reader.ReadUInt16();
-        
-        for (var i = 0; i < fieldCount;)
+        var i = 0;
+
+        while (i < fieldCount)
         {
             var field = Deserialize(stream, options);
             
@@ -54,12 +55,11 @@ public static class MarshalSerializer
         {
             case 1 or 2 or 3 or 4: // Integers
             {
-                List<ushort> indexes = new();
+                var indexes = new ushort[headerParam];
                 
                 for (var i = 0; i < headerParam; i++)
                 {
-                    var fieldIndex = reader.ReadUInt16();
-                    indexes.Add(fieldIndex);
+                    indexes[i] = reader.ReadUInt16();
                 }
 
                 foreach (var i in indexes)
@@ -168,6 +168,8 @@ public static class MarshalSerializer
 
                 break;
             }
+            default:
+                throw new Exception($"Invalid header type: {headerType}");
         }
 
         return result;
