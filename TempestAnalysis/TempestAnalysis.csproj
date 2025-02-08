@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MarshalLib\MarshalLib.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="MainWindow.cs">
+        <SubType>Form</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Download.bmp" />
+      <EmbeddedResource Include="Resources\Download.bmp" />
+      <None Remove="Resources\Upload.bmp" />
+      <EmbeddedResource Include="Resources\Upload.bmp" />
+    </ItemGroup>
+
+</Project>
