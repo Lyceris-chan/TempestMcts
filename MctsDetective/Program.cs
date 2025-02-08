@@ -1,4 +1,4 @@
-namespace TempestAnalysis;
+namespace MctsDetective;
 
 static class Program
 {

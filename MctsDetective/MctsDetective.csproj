@@ -13,16 +13,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="MainWindow.cs">
-        <SubType>Form</SubType>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Resources\Download.bmp" />
       <EmbeddedResource Include="Resources\Download.bmp" />
       <None Remove="Resources\Upload.bmp" />
       <EmbeddedResource Include="Resources\Upload.bmp" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="MainWindow.cs">
+        <SubType>Form</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>

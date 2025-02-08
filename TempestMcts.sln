@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarshalLib", "MarshalLib\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempestServer", "TempestServer\TempestServer.csproj", "{454DB94C-6BB8-4388-8F79-6587AF842058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempestAnalysis", "TempestAnalysis\TempestAnalysis.csproj", "{A40AC1CE-A924-4F5A-97C7-BF52F05F765F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MctsDetective", "MctsDetective\MctsDetective.csproj", "{A40AC1CE-A924-4F5A-97C7-BF52F05F765F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

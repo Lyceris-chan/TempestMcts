@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace TempestAnalysis;
+namespace MctsDetective;
 
 public static class ResourceLoader
 {
