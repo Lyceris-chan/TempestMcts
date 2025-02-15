@@ -92,25 +92,28 @@ public static class MarshalSerializer
                 var rowCount16 = reader.ReadUInt16();
                 var rowCount = rowCount16 == ushort.MaxValue ? reader.ReadUInt32() : rowCount16;
 
-                var rows = new Dictionary<string, MarshalObject>();
-                var o = 0;
-
-                while (o < rowCount)
+                var rows = new List<Dictionary<string, MarshalObject>>((int)rowCount);
+                
+                for (var i = 0; i < rowCount; i++)
                 {
+                    var row = new Dictionary<string, MarshalObject>();
                     var entryCount = reader.ReadUInt16();
 
-                    for (var i = 0; i < entryCount;)
-                    {
-                        var rowEntry = Deserialize(stream, options);
+                    var j = 0;
 
-                        i += rowEntry.Count;
-                        foreach (var entry in rowEntry)
+                    while (j < entryCount)
+                    {
+                        var entry = Deserialize(stream, options);
+
+                        foreach (var (key, value) in entry)
                         {
-                            rows[entry.Key] = entry.Value;
+                            row[key] = value;
                         }
+
+                        j += entry.Count;
                     }
 
-                    o++;
+                    rows.Add(row);
                 }
 
                 result[field.Name] = new MarshalObject(rows);
@@ -247,11 +250,11 @@ public static class MarshalSerializer
             }
             case FieldType.DataSet:
             {
-                var value = (Dictionary<string, MarshalObject>)marshalObject.Value;
-                
+                var value = (IList<Dictionary<string, MarshalObject>>)marshalObject.Value;
+    
                 writer.Write(marshalObject.GetEntryHeader(1));
                 writer.Write(fieldIndex);
-                
+    
                 if (value.Count > ushort.MaxValue)
                 {
                     writer.Write(ushort.MaxValue);
@@ -261,13 +264,17 @@ public static class MarshalSerializer
                 {
                     writer.Write((ushort)value.Count);
                 }
-                
+    
                 foreach (var row in value)
                 {
-                    writer.Write((ushort)1);
-                    Serialize(stream, row.Key, row.Value, options);
+                    writer.Write((ushort)row.Count);
+        
+                    foreach (var entry in row)
+                    {
+                        Serialize(stream, entry.Key, entry.Value, options);
+                    }
                 }
-                
+    
                 break;
             }
             case FieldType.Blob:

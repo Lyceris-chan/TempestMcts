@@ -30,14 +30,8 @@ var deserialised = MarshalSerializer.DeserializePacket(reserialised, marshalSeri
 Console.WriteLine("Original: " + bytes.Length);
 Console.WriteLine("Reserialised: " + reserialised.Length);
 
-// Console.WriteLine(JsonSerializer.Serialize(deserialised, new JsonSerializerOptions
-// {
-//     WriteIndented = true,
-//     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-// }));
-
-// Console.WriteLine(JsonSerializer.Serialize(original, new JsonSerializerOptions
-// {
-//     WriteIndented = true,
-//     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-// }));
+File.WriteAllText("C:\\Users\\Kyiro\\Downloads\\rrserver-core-dev\\rrserver-core\\data\\assembly.json", JsonSerializer.Serialize(deserialised, new JsonSerializerOptions
+{
+    WriteIndented = true,
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+}));

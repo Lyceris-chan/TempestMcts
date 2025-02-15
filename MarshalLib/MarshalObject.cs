@@ -40,7 +40,7 @@ public class MarshalObject(FieldType type, object value, MarshalFlags flags = Ma
     {
     }
     
-    public MarshalObject(Dictionary<string, MarshalObject> value) : this(FieldType.DataSet, value)
+    public MarshalObject(IList<Dictionary<string, MarshalObject>> value) : this(FieldType.DataSet, value)
     {
     }
     
