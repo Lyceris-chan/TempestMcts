@@ -3,6 +3,7 @@ namespace MarshalLib;
 public class FieldMappings
 {
     private Dictionary<ushort, FieldDescriptor> _fields = new();
+    private Dictionary<string, ushort> _fieldNames = new();
     
     public void Read(Stream stream)
     {
@@ -23,10 +24,18 @@ public class FieldMappings
             };
             
             _fields.Add(index, field);
+            _fieldNames.Add(field.Name, index);
+            
             index++;
         }
     }
     
     public FieldDescriptor? Get(ushort index) =>
         _fields.GetValueOrDefault(index);
+    
+    public bool TryGetIndex(string name, out ushort index) =>
+        _fieldNames.TryGetValue(name, out index);
+    
+    public ushort GetIndex(string name) =>
+        _fieldNames.GetValueOrDefault(name);
 }
