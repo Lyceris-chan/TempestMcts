@@ -1,11 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net;
 using MarshalLib;
-
-var input = File.ReadAllBytes(
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Realm Royale\\RealmGame\\CookedPCConsole\\assembly.dat");
-var bytes = input.Select(b => (byte)(b ^ 0x2A)).ToArray();
-
-File.WriteAllBytes("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Realm Royale\\RealmGame\\CookedPCConsole\\assembly.unxored.dat", bytes);
 
 var fieldMappings = new FieldMappings();
 var functionMappings = new FunctionMappings();
@@ -19,19 +13,6 @@ var marshalSerializerOptions = new MarshalSerializerOptions
     FunctionMappings = functionMappings
 };
 
-var original = MarshalSerializer.DeserializePacket(new MemoryStream(bytes), marshalSerializerOptions);
+var listener = new MctsListener(IPAddress.Any, 7777);
 
-var reserialised = new MemoryStream();
-MarshalSerializer.SerializePacket(reserialised, original, marshalSerializerOptions);
-
-reserialised.Position = 0;
-var deserialised = MarshalSerializer.DeserializePacket(reserialised, marshalSerializerOptions);
-
-Console.WriteLine("Original: " + bytes.Length);
-Console.WriteLine("Reserialised: " + reserialised.Length);
-
-File.WriteAllText("C:\\Users\\Kyiro\\Downloads\\rrserver-core-dev\\rrserver-core\\data\\assembly.json", JsonSerializer.Serialize(deserialised, new JsonSerializerOptions
-{
-    WriteIndented = true,
-    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-}));
+await listener.Run();
