@@ -4,10 +4,10 @@ namespace MarshalLib;
 
 public static class MarshalSerializer
 {
-    public static MctsPacket DeserializePacket(Stream stream, MarshalSerializerOptions options)
+    public static MarshalFunction DeserializeFunction(Stream stream, MarshalSerializerOptions options)
     {
         var reader = new BinaryReader(stream);
-        var packet = new MctsPacket();
+        var packet = new MarshalFunction();
 
         var zeroByte = reader.ReadByte();
         if (zeroByte != 0x0)
@@ -178,7 +178,7 @@ public static class MarshalSerializer
         return result;
     }
     
-    public static void SerializePacket(Stream stream, MctsPacket packet, MarshalSerializerOptions options)
+    public static void SerializeFunction(Stream stream, MarshalFunction packet, MarshalSerializerOptions options)
     {
         var writer = new BinaryWriter(stream);
         

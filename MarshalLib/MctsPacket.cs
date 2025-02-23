@@ -1,8 +1,9 @@
 namespace MarshalLib;
 
-public class MctsPacket
+public enum PacketDirection
 {
-    public uint FunctionHash { get; set; }
-    public string? FunctionName { get; set; }
-    public Dictionary<string, MarshalObject> Rows { get; set; } = new();
+    Incoming,
+    Outgoing
 }
+
+public record MctsPacket(PacketDirection Direction, MarshalFunction Function);

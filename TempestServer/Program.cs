@@ -13,6 +13,6 @@ var marshalSerializerOptions = new MarshalSerializerOptions
     FunctionMappings = functionMappings
 };
 
-var listener = new MctsListener(IPAddress.Any, 7777);
+var listener = new MctsListener(IPAddress.Any, 9000, marshalSerializerOptions);
 
 await listener.Run();
