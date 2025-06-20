@@ -82,6 +82,39 @@ public static class MarshalSerializer
 
                 break;
             }
+            case 5: // String
+            {
+                var fieldIndex = reader.ReadUInt16();
+                var field = options.FieldMappings.Get(fieldIndex);
+                
+                if (field == null) throw new Exception($"Field (index: {fieldIndex}) not found");
+
+                var length = reader.ReadUInt16();
+                var isUtf16 = (length & 0x8000) != 0;
+
+                if (isUtf16)
+                {
+                    length &= 0x0FFF;
+
+                    if (length == 0)
+                    {
+                        result[field.Name] = new MarshalObject("");
+                        break;
+                    }
+                    
+                    result[field.Name] = new MarshalObject(Encoding.Unicode.GetString(reader.ReadBytes(length)));
+                }
+
+                if (length == 0)
+                {
+                    result[field.Name] = new MarshalObject("");
+                    break;
+                }
+                
+                result[field.Name] = new MarshalObject(Encoding.UTF8.GetString(reader.ReadBytes(length)));
+                
+                break;
+            }
             case 6: // DataSet
             {
                 var fieldIndex = reader.ReadUInt16();
