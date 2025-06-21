@@ -1,5 +1,4 @@
 using System.IO.Compression;
-using Spectre.Console;
 
 namespace Tempest.CLI;
 
@@ -23,8 +22,6 @@ public class UtilityCommands
 
         while ((headerIndex = file.IndexOfBytes(gzipHeader)) != -1)
         {
-            AnsiConsole.MarkupLine($"GZIP header found at [yellow]{headerIndex}[/]");
-            
             file.Position = headerIndex;
 
             var filename = headerIndex.ToString();
@@ -49,7 +46,7 @@ public class UtilityCommands
             
             File.WriteAllBytes(Path.Join(output, $"{filename}.dat"), bytes);
             
-            AnsiConsole.MarkupLine($"Wrote all [yellow]{bytes.Length}[/] bytes to [green]\"{filename}.dat\"[/]");
+            Console.WriteLine($"Wrote all {bytes.Length} bytes to \"{filename}.dat\"");
 
             file.Position = headerIndex + 1;
         }

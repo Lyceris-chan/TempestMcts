@@ -4,6 +4,15 @@ public class FunctionMappings
 {
     private List<FunctionDescriptor> _functions = new();
     
+    public static FunctionMappings OpenRead(Stream stream)
+    {
+        var mappings = new FunctionMappings();
+        
+        mappings.Read(stream);
+
+        return mappings;
+    }
+    
     public void Read(Stream stream)
     {
         using var reader = new BinaryReader(stream);
@@ -29,6 +38,9 @@ public class FunctionMappings
     
     public FunctionDescriptor? Get(UInt32 hash) =>
         _functions.FirstOrDefault(f => f.Hash == hash);
+
+    public FunctionDescriptor? GetByIndex(UInt16 index) =>
+        _functions.ElementAtOrDefault(index);
     
     public FunctionDescriptor? Get(string name) =>
         _functions.FirstOrDefault(f => f.Name == name);

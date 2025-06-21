@@ -4,6 +4,15 @@ public class FieldMappings
 {
     private Dictionary<ushort, FieldDescriptor> _fields = new();
     private Dictionary<string, ushort> _fieldNames = new();
+
+    public static FieldMappings OpenRead(Stream stream)
+    {
+        var mappings = new FieldMappings();
+        
+        mappings.Read(stream);
+
+        return mappings;
+    }
     
     public void Read(Stream stream)
     {

@@ -8,15 +8,29 @@ public static class MarshalSerializer
     {
         var reader = new BinaryReader(stream);
         var packet = new MarshalFunction();
+        
+        FunctionDescriptor? function;
 
-        var zeroByte = reader.ReadByte();
-        if (zeroByte != 0x0)
-            throw new Exception($"Zero byte is not 0x00: {zeroByte}");
+        packet.Version = options.Version;
 
-        var functionHash = reader.ReadUInt32();
-        var function = options.FunctionMappings.Get(functionHash);
+        if (options.Version == MarshalSerializerVersion.Modern)
+        {   
+            var zeroByte = reader.ReadByte();
+            if (zeroByte != 0x0)
+                throw new Exception($"Zero byte is not 0x00: {zeroByte}");
+                    
+            var functionHash = reader.ReadUInt32();
+            function = options.FunctionMappings.Get(functionHash);
 
-        packet.FunctionHash = functionHash;
+            packet.Function = functionHash;
+        }
+        else
+        {
+            var functionIndex = reader.ReadUInt16();
+            function = options.FunctionMappings.GetByIndex(functionIndex);
+
+            packet.Function = functionIndex;
+        }
 
         if (function != null)
         {
@@ -186,6 +200,21 @@ public static class MarshalSerializer
 
                 break;
             }
+            case 9:
+            {
+                var fieldIndex = reader.ReadUInt16();
+                var field = options.FieldMappings.Get(fieldIndex);
+                
+                if (field == null) throw new Exception($"Field (index: {fieldIndex}) not found");
+
+                var length = headerParam * 2;
+                var bytes = reader.ReadBytes(length);
+                var str = Encoding.Unicode.GetString(bytes);
+
+                result[field.Name] = new MarshalObject(str, MarshalFlags.Utf16);
+                
+                break;
+            }
             case 10: // String
             {
                 var fieldIndex = reader.ReadUInt16();
@@ -215,7 +244,7 @@ public static class MarshalSerializer
     {
         var writer = new BinaryWriter(stream);
         
-        var functionHash = packet.FunctionHash;
+        var functionHash = packet.Function;
 
         if (functionHash == 0)
         {
