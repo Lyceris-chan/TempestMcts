@@ -2,7 +2,7 @@ using System.IO.Compression;
 
 namespace Tempest.CLI;
 
-public class ProjectCommands
+internal class ProjectCommands
 {
     /// <summary>Creates a brand new UDK project for modding</summary>
     public void Create()

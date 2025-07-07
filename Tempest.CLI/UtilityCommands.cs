@@ -2,7 +2,7 @@ using System.IO.Compression;
 
 namespace Tempest.CLI;
 
-public class UtilityCommands
+internal class UtilityCommands
 {
     /// <summary>Extracts uncompressed function and field token data from a PE</summary>
     /// <param name="path">Path of the DLL or EXE</param>

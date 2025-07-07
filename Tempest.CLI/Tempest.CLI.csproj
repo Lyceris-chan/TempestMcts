@@ -5,8 +5,14 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <PublishAot>true</PublishAot>
     </PropertyGroup>
+    
+    <ItemGroup Condition="$([MSBuild]::IsOSUnixLike())">
+        <None Include="tempest-cli.sh">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="ConsoleAppFramework" Version="5.4.1">

@@ -4,7 +4,7 @@ using MarshalLib;
 
 namespace Tempest.CLI;
 
-public class MarshalCommands
+internal class MarshalCommands
 {
     public static JsonSerializerOptions JsonSerializerOptions = new()
     {
