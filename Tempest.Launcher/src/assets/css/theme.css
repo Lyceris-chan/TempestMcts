@@ -1,0 +1,97 @@
+/* CSS Variables are organised in a similar manner to VitePress */
+/* https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css */
+
+:root {
+	--c-white: #ffffff;
+	--c-black: #000000;
+
+	--c-gray-1: #515c67;
+	--c-gray-2: #414853;
+	--c-gray-3: #32363f;
+	--c-gray-soft: rgba(101, 117, 133, 0.16);
+
+	--c-indigo-1: #a8b1ff;
+	--c-indigo-2: #5c73e7;
+	--c-indigo-3: #3e63dd;
+	--c-indigo-soft: rgba(100, 108, 255, 0.16);
+
+	--c-purple-1: #c8abfa;
+	--c-purple-2: #a879e6;
+	--c-purple-3: #8e5cd9;
+	--c-purple-soft: rgba(159, 122, 234, 0.16);
+
+	--c-green-1: #3dd68c;
+	--c-green-2: #30a46c;
+	--c-green-3: #298459;
+	--c-green-soft: rgba(16, 185, 129, 0.16);
+
+	--c-yellow-1: #f9b44e;
+	--c-yellow-2: #da8b17;
+	--c-yellow-3: #a46a0a;
+	--c-yellow-soft: rgba(234, 179, 8, 0.16);
+
+	--c-red-1: #f66f81;
+	--c-red-2: #f14158;
+	--c-red-3: #b62a3c;
+	--c-red-soft: rgba(244, 63, 94, 0.16);
+}
+
+:root {
+	--c-text: var(--c-text-1);
+	--c-text-1: #f8f8f7;
+	--c-text-2: #babac9;
+	--c-text-3: #737377;
+
+	--c-bg: #1b1b1f;
+	--c-bg-alt: #161618;
+	--c-bg-elv: #202127;
+	--c-bg-soft: #202127;
+
+	--c-border: #3c3f44;
+	--c-divider: #2e2e32;
+	--c-gutter: #000000;
+
+	--c-nav-border: #0f92ceaa;
+	--c-nav-bg: #16161833;
+}
+
+:root {
+	--c-default-1: var(--c-gray-1);
+	--c-default-2: var(--c-gray-2);
+	--c-default-3: var(--c-gray-3);
+	--c-default-soft: var(--c-gray-soft);
+
+	--c-brand-1: #2e517c;
+	--c-brand-2: #1d7fa3;
+	--c-brand-3: #0f92ce;
+	--c-brand-soft: #99dbd8;
+
+	--c-success-1: var(--c-green-1);
+	--c-success-2: var(--c-green-2);
+	--c-success-3: var(--c-green-3);
+	--c-success-soft: var(--c-green-soft);
+
+	--c-important-1: var(--c-purple-1);
+	--c-important-2: var(--c-purple-2);
+	--c-important-3: var(--c-purple-3);
+	--c-important-soft: var(--c-purple-soft);
+
+	--c-warning-1: var(--c-yellow-1);
+	--c-warning-2: var(--c-yellow-2);
+	--c-warning-3: var(--c-yellow-3);
+	--c-warning-soft: var(--c-yellow-soft);
+
+	--c-danger-1: var(--c-red-1);
+	--c-danger-2: var(--c-red-2);
+	--c-danger-3: var(--c-red-3);
+	--c-danger-soft: var(--c-red-soft);
+
+	--c-caution-1: var(--c-red-1);
+	--c-caution-2: var(--c-red-2);
+	--c-caution-3: var(--c-red-3);
+	--c-caution-soft: var(--c-red-soft);
+}
+
+:root {
+	--font-family-base: "Montserrat", sans-serif;
+}
