@@ -6,7 +6,9 @@
 
 <style scoped>
 nav {
-	background-color: var(--c-nav-bg);
+	background: var(--nav-bg);
+	background-repeat: repeat-x;
+	background-size: auto 100%;
 	-webkit-backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

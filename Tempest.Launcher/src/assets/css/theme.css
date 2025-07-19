@@ -51,8 +51,8 @@
 	--c-divider: #2e2e32;
 	--c-gutter: #000000;
 
-	--c-nav-border: #0f92ceaa;
-	--c-nav-bg: #16161833;
+	--c-nav-border: var(--c-brand-3);
+	--nav-bg: url("/img/navigation-pattern.png");
 }
 
 :root {

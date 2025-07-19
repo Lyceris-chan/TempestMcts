@@ -11,6 +11,7 @@ import Navigation from "./components/ui/Navigation";
 				<Navigation.Link to="/" title="Home" />
 				<Navigation.Link to="/builds" title="Builds" />
 				<Navigation.Link to="/servers" title="Servers" />
+				<Navigation.Link to="/settings" title="Settings" />
 			</Navigation.Section>
 			<Navigation.Section> </Navigation.Section>
 		</Navigation.Root>

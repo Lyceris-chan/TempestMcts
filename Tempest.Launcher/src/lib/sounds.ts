@@ -9,13 +9,13 @@ function defineSounds<T extends string>(sounds: Record<T, [HTMLAudioElement, num
 	return sounds as Record<T, [HTMLAudioElement, number]>;
 }
 
-export function playSound(soundName: keyof typeof sounds) {
+export const playSound = (soundName: keyof typeof sounds) => {
 	const value = sounds[soundName];
 	if (value) {
 		const [sound, volume] = value;
 
-		sound.currentTime = 0;
 		sound.volume = volume;
+		sound.currentTime = 0;
 
 		sound.play().catch((error) => {
 			console.error(`Error playing sound ${soundName}:`, error);
@@ -23,4 +23,4 @@ export function playSound(soundName: keyof typeof sounds) {
 	} else {
 		console.warn(`Sound ${soundName} not found.`);
 	}
-}
+};
