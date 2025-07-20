@@ -10,6 +10,7 @@ import Navigation from "./components/ui/Navigation";
 				<!-- <Navigation.Header>Tempest</Navigation.Header> -->
 				<Navigation.Link to="/" title="Home" />
 				<Navigation.Link to="/builds" title="Builds" />
+				<Navigation.Link to="/multiplayer" title="Multiplayer" />
 				<Navigation.Link to="/servers" title="Servers" />
 				<Navigation.Link to="/settings" title="Settings" />
 			</Navigation.Section>
@@ -18,3 +19,9 @@ import Navigation from "./components/ui/Navigation";
 		<RouterView />
 	</main>
 </template>
+
+<style>
+:root {
+	overflow: hidden;
+}
+</style>

@@ -1,8 +1,9 @@
 const sounds = defineSounds({
-	clickImpact: [new Audio("/audio/click-impact.mp3"), 0.1],
-	clickSwitch: [new Audio("/audio/click-switch.mp3"), 0.1],
-	clickTick: [new Audio("/audio/click-tick.mp3"), 0.1],
-	hover: [new Audio("/audio/hover.mp3"), 0.003],
+	clickImpact: [new Audio("/audio/click-impact.ogg"), 0.1],
+	clickSwitch: [new Audio("/audio/click-switch.ogg"), 0.1],
+	clickTick: [new Audio("/audio/click-tick.ogg"), 0.1],
+	hover: [new Audio("/audio/hover.ogg"), 0.003],
+	play: [new Audio("/audio/play.ogg"), 0.1],
 });
 
 function defineSounds<T extends string>(sounds: Record<T, [HTMLAudioElement, number]>) {
