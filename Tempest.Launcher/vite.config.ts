@@ -1,16 +1,12 @@
-import vue from "@vitejs/plugin-vue";
+import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
-	plugins: [
-		tsconfigPaths(),
-		vue(),
-	],
+export default defineConfig({
+	plugins: [sveltekit()],
 
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
 	//
@@ -33,4 +29,4 @@ export default defineConfig(async () => ({
 			ignored: ["**/src-tauri/**"],
 		},
 	},
-}));
+});
