@@ -9,7 +9,7 @@ export const sounds = {
 	clickSwitch: createAudio("/audio/click-switch.ogg", 0.1),
 	clickTick: createAudio("/audio/click-tick.ogg", 0.1),
 	denied: createAudio("/audio/denied.ogg", 0.1),
-	hover: createAudio("/audio/hover.ogg", 0.003)
+	hover: createAudio("/audio/hover.ogg", 0.003),
 };
 
 export const playSound = (soundName: keyof typeof sounds) => {

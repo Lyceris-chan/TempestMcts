@@ -4,6 +4,10 @@
 	"typescript": {
 		"quoteStyle": "alwaysDouble"
 	},
+	"markup": {
+		"scriptIndent": true,
+		"styleIndent": true
+	},
 	"json": {},
 	"excludes": [
 		"**/node_modules",

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/montserrat':
+        specifier: ^5.2.6
+        version: 5.2.6
       '@tauri-apps/api':
         specifier: ^2
         version: 2.7.0
@@ -17,6 +20,9 @@ importers:
       '@tauri-apps/plugin-shell':
         specifier: ~2.3.0
         version: 2.3.0
+      runed:
+        specifier: ^0.31.1
+        version: 0.31.1(svelte@5.36.13)
     devDependencies:
       '@sveltejs/adapter-static':
         specifier: ^3.0.8
@@ -252,6 +258,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/montserrat@5.2.6':
+    resolution: {integrity: sha512-1eHefcz9ZXSMjZPckKCWSYd8rLjUpmzQIsNO8DuyU0IdPvsqletPvSIJmztr0sCU6sX4EFKsSHxJWawjmROp2A==}
 
   '@jridgewell/gen-mapping@0.3.12':
     resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
@@ -607,6 +616,11 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
+  runed@0.31.1:
+    resolution: {integrity: sha512-v3czcTnO+EJjiPvD4dwIqfTdHLZ8oH0zJheKqAHh9QMViY7Qb29UlAMRpX7ZtHh7AFqV60KmfxaJ9QMy+L1igQ==}
+    peerDependencies:
+      svelte: ^5.7.0
+
   sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
     engines: {node: '>=6'}
@@ -809,6 +823,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.6':
     optional: true
+
+  '@fontsource-variable/montserrat@5.2.6': {}
 
   '@jridgewell/gen-mapping@0.3.12':
     dependencies:
@@ -1128,6 +1144,11 @@ snapshots:
       '@rollup/rollup-win32-ia32-msvc': 4.45.1
       '@rollup/rollup-win32-x64-msvc': 4.45.1
       fsevents: 2.3.3
+
+  runed@0.31.1(svelte@5.36.13):
+    dependencies:
+      esm-env: 1.2.2
+      svelte: 5.36.13
 
   sade@1.8.1:
     dependencies:
