@@ -1,27 +1,19 @@
-const sounds = defineSounds({
-	clickImpact: [new Audio("/audio/click-impact.ogg"), 0.1],
-	clickSwitch: [new Audio("/audio/click-switch.ogg"), 0.1],
-	clickTick: [new Audio("/audio/click-tick.ogg"), 0.1],
-	hover: [new Audio("/audio/hover.ogg"), 0.003],
-	play: [new Audio("/audio/play.ogg"), 0.1],
-});
-
-function defineSounds<T extends string>(sounds: Record<T, [HTMLAudioElement, number]>) {
-	return sounds as Record<T, [HTMLAudioElement, number]>;
+function createAudio(src: string, volume: number) {
+	const audio = new Audio(src);
+	audio.volume = volume;
+	return audio;
 }
 
+export const sounds = {
+	clickImpact: createAudio("/audio/click-impact.ogg", 0.1),
+	clickSwitch: createAudio("/audio/click-switch.ogg", 0.1),
+	clickTick: createAudio("/audio/click-tick.ogg", 0.1),
+	denied: createAudio("/audio/denied.ogg", 0.1),
+	hover: createAudio("/audio/hover.ogg", 0.003)
+};
+
 export const playSound = (soundName: keyof typeof sounds) => {
-	const value = sounds[soundName];
-	if (value) {
-		const [sound, volume] = value;
-
-		sound.volume = volume;
-		sound.currentTime = 0;
-
-		sound.play().catch((error) => {
-			console.error(`Error playing sound ${soundName}:`, error);
-		});
-	} else {
-		console.warn(`Sound ${soundName} not found.`);
-	}
+	const sound = sounds[soundName];
+	sound.currentTime = 0;
+	sound.play().catch(console.error);
 };
