@@ -37,5 +37,6 @@
 		overflow-x: hidden;
 		min-height: 100%;
 		flex: 1;
+		padding: var(--spacing-sm);
 	}
 </style>

@@ -38,10 +38,25 @@
 		border-color: #0f92ce;
 	}
 
+	button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		background: linear-gradient(#666666cc, #555555cc, #444444cc);
+		border-color: #666666;
+		box-shadow: none;
+	}
+
+	button:disabled:hover {
+		background: linear-gradient(#666666cc, #555555cc, #444444cc);
+		border-color: #666666;
+		box-shadow: none;
+	}
+
 	.icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		font-size: 1.6rem;
 		width: 2.4rem;
 		height: 2.4rem;
 	}

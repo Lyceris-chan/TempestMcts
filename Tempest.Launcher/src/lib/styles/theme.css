@@ -2,14 +2,14 @@
 	--color-primary: #0f92ce;
 
 	--bg-base: #000000;
-	--bg-surface: #0a0c2066;
+	--bg-surface: #0a0c3088;
 	--bg-elevated: #475569;
 
 	--text-primary: #f8fafc;
 	--text-secondary: #babac9;
 	--text-muted: #94a3b8;
 
-	--border-primary: #0F92CE80;
+	--border-primary: #0f92ce80;
 
 	--interactive-hover: rgba(14, 165, 233, 0.1);
 	--interactive-active: rgba(14, 165, 233, 0.2);
