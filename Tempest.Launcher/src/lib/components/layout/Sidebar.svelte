@@ -3,7 +3,7 @@
 	import { mainPages } from "$lib/pages";
 </script>
 <div class="sidebar">
-	<div class="sidebar-section">
+	<div class="sidebar-section link-list">
 		{#each mainPages as mainPage}
 			<a class="sidebar-link" aria-current={page.url.pathname == mainPage.path} href={mainPage.path}>{mainPage.label}</a>
 		{/each}
@@ -20,7 +20,6 @@
 		flex-direction: column;
 		justify-content: space-between;
 		width: 200px;
-		overflow: hidden;
 	}
 
 	.sidebar-section {
@@ -28,7 +27,13 @@
 		flex-direction: column;
 	}
 
+	.link-list {
+		padding: 0 var(--spacing-md);
+		gap: var(--spacing-sm);
+	}
+
 	.sidebar-link {
+		border-radius: var(--border-radius);
 		color: inherit;
 		text-decoration: none;
 		display: flex;
@@ -38,10 +43,9 @@
 		font-weight: 600;
 		padding: var(--spacing-md);
 		text-transform: uppercase;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.3s var(--curve);
 		border: 1px solid transparent;
 		position: relative;
-		margin: 2px;
 	}
 
 	.sidebar-link:hover {

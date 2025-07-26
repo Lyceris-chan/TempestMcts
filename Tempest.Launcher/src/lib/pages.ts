@@ -1,5 +1,6 @@
 export const mainPages: { label: string, path: string }[] = [
     { label: "Home", path: "/" },
+    { label: "Champions", path: "/champions" },
     { label: "Library", path: "/library" },
     { label: "Servers", path: "/servers" }
 ];

@@ -89,7 +89,7 @@
 
 	.header {
 		background-color: var(--bg-surface);
-		padding: 0 var(--spacing-lg);
+		padding: 0 var(--spacing-md);
 		min-height: 4rem;
 		justify-content: space-between;
 		width: 100vw;

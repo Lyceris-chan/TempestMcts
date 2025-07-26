@@ -97,7 +97,7 @@
 		text-decoration: none;
 		padding: var(--spacing-xs) var(--spacing-sm);
 		border-radius: var(--border-radius);
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.3s var(--curve);
 		display: inline-block;
 		position: relative;
 		font-weight: 600;
