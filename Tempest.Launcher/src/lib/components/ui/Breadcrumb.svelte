@@ -101,7 +101,7 @@
 		display: inline-block;
 		position: relative;
 		font-weight: 600;
-		border: 1px solid transparent;
+		border: 2px solid transparent;
 		margin: 1px;
 	}
 
@@ -131,7 +131,7 @@
 		padding: var(--spacing-xs) var(--spacing-sm);
 		border-radius: var(--border-radius);
 		background: linear-gradient(#0f92ce22, #1f72a422, #137da922);
-		border: 1px solid rgba(15, 146, 206, 0.3);
+		border: 2px solid rgba(15, 146, 206, 0.3);
 	}
 
 	.breadcrumb-separator {

@@ -28,7 +28,7 @@
 	}
 
 	.main-content {
-		border: 1px solid var(--border-primary);
+		border: 2px solid var(--border-primary);
 		border-right: 0;
 		border-bottom: 0;
 		overflow-y: auto;

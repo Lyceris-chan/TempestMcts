@@ -43,7 +43,7 @@
 		padding: var(--spacing-md);
 		text-transform: uppercase;
 		transition: all 0.3s var(--curve);
-		border: 1px solid transparent;
+		border: 2px solid transparent;
 		position: relative;
 	}
 
