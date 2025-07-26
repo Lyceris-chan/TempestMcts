@@ -55,7 +55,7 @@
 						{item.label}
 					</a>
 				{:else}
-					<span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
+					<span class="breadcrumb-link" aria-current={item.isCurrentPage ? "page" : undefined}>
 						{item.label}
 					</span>
 				{/if}
@@ -105,9 +105,9 @@
 		margin: 1px;
 	}
 
-	.breadcrumb-link:hover {
+	.breadcrumb-link:not([aria-current="page"]):hover {
 		background: linear-gradient(135deg, #1cc6fbaa, #0194d4aa, #00a2daaa);
-		box-shadow: 
+		box-shadow:
 			#0f92ce 0px 0px 12px 0.1rem,
 			rgba(0, 0, 0, 0.3) 0px 2px 8px 0px,
 			inset rgba(255, 255, 255, 0.2) 0px 1px 0px 0px;
@@ -117,7 +117,7 @@
 		transform: translateY(-1px);
 	}
 
-	.breadcrumb-link:focus-visible {
+	.breadcrumb-link:not([aria-current="page"]):focus-visible {
 		outline: 2px solid var(--color-primary);
 		outline-offset: 2px;
 		color: var(--text-primary);
@@ -125,7 +125,7 @@
 		border-color: var(--color-primary);
 	}
 
-	.breadcrumb-current {
+	.breadcrumb-link[aria-current="page"] {
 		color: var(--text-primary);
 		font-weight: 700;
 		padding: var(--spacing-xs) var(--spacing-sm);

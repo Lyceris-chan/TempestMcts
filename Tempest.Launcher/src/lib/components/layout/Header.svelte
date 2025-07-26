@@ -1,22 +1,43 @@
 <script lang="ts">
+	import { onNavigate } from "$app/navigation";
 	import { page } from "$app/state";
 	import Breadcrumb from "$lib/components/ui/Breadcrumb.svelte";
 	import Button from "$lib/components/ui/Button.svelte";
 	import { toReadablePathSegment } from "$lib/pages";
 
-	let canNavigateBack = $state(false);
-	let canNavigateForward = $state(false);
-	let lastPage = $state<string | null>(null);
+	let historyStack = $state<string[]>([page.route.id || ""]);
+	let historyIndex = $state(0);
+	let navigating = false;
 
-	const goBack = () => window.history.back();
-	const goForward = () => window.history.forward();
-
-	$effect(() => {
-		canNavigateBack = page.url.pathname !== "/";
-		canNavigateForward = lastPage !== null && lastPage !== page.url.pathname;
-
-		lastPage = page.url.pathname;
+	onNavigate((navigation) => {
+		if (!navigating) {
+			if (historyIndex < historyStack.length - 1) {
+				historyStack = historyStack.slice(0, historyIndex + 1);
+			}
+			historyStack.push(navigation.to?.route.id || "");
+			historyIndex++;
+		}
+		navigating = false;
 	});
+
+	const goBack = () => {
+		if (historyIndex > 0) {
+			navigating = true;
+			historyIndex--;
+			window.history.back();
+		}
+	};
+
+	const goForward = () => {
+		if (historyIndex < historyStack.length - 1) {
+			navigating = true;
+			historyIndex++;
+			window.history.forward();
+		}
+	};
+
+	const canNavigateBack = $derived(historyIndex > 0);
+	const canNavigateForward = $derived(historyIndex < historyStack.length - 1);
 
 	const breadcrumbItems = $derived(() => {
 		const segments = page.route.id?.split("/").filter(Boolean) ?? [];

@@ -9,7 +9,6 @@
 		{/each}
 	</div>
 	<div class="sidebar-section">
-
 	</div>
 </div>
 
@@ -50,7 +49,7 @@
 
 	.sidebar-link:hover {
 		background: linear-gradient(135deg, #1cc6fbaa, #0194d4aa, #00a2daaa);
-		box-shadow: 
+		box-shadow:
 			#0f92ce 0px 0px 12px 0.1rem,
 			rgba(0, 0, 0, 0.3) 0px 2px 8px 0px,
 			inset rgba(255, 255, 255, 0.2) 0px 1px 0px 0px;
@@ -66,19 +65,19 @@
 		border-color: var(--color-primary);
 	}
 
-	.sidebar-link[aria-current=true] {
+	.sidebar-link[aria-current="true"] {
 		background: linear-gradient(135deg, #0f92ce88, #1f72a488, #137da988);
 		border-color: var(--color-primary);
-		box-shadow: 
-			#0f92ce 0px 0px 8px 0.05rem, 
+		/* box-shadow:
+			#0f92ce 0px 0px 8px 0.05rem,
 			rgba(0, 0, 0, 0.2) 0px 1px 4px 0px,
-			inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px;
+			inset rgba(255, 255, 255, 0.1) 0px 1px 0px 0px; */
 		font-weight: 700;
 	}
 
-	.sidebar-link[aria-current=true]:hover {
+	.sidebar-link[aria-current="true"]:hover {
 		background: linear-gradient(135deg, #1cc6fbcc, #0194d4cc, #00a2dacc);
-		box-shadow: 
+		box-shadow:
 			#1cc6fb 0px 0px 16px 0.15rem,
 			rgba(0, 0, 0, 0.4) 0px 3px 12px 0px,
 			inset rgba(255, 255, 255, 0.3) 0px 1px 0px 0px;
