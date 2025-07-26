@@ -76,7 +76,7 @@
 	<div class="section">
 		<div class="controls">
 			<Button
-				icon
+				kind="icon"
 				onclick={goBack}
 				disabled={!canNavigateBack}
 				title="Go back"
@@ -84,7 +84,7 @@
 				{"<"}
 			</Button>
 			<Button
-				icon
+				kind="icon"
 				onclick={goForward}
 				disabled={!canNavigateForward}
 				title="Go forward"

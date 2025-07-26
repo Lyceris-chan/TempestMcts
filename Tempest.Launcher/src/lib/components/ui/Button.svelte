@@ -1,14 +1,20 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import type { HTMLButtonAttributes } from "svelte/elements";
 
 	interface Props extends HTMLButtonAttributes {
-		icon?: boolean;
+		kind?: "normal" | "icon";
+		href?: string;
 	}
 
-	let { children, icon, ...props }: Props = $props();
+	let { children, kind, href, ...props }: Props = $props();
 </script>
 
-<button class={[{ icon }]} {...props}>
+<button
+	class={[ kind ]}
+	onclick={href ? () => goto(href) : undefined}
+	{...props}
+>
 	{@render children?.()}
 </button>
 

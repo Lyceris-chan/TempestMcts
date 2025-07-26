@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
 	import { page } from "$app/state";
 	import { mainPages } from "$lib/pages";
+
+	const isCurrent = (path: string) => path == "/" ? path == page.url.pathname : page.url.pathname.startsWith(path);
 </script>
 <div class="sidebar">
 	<div class="sidebar-section link-list">
 		{#each mainPages as mainPage}
-			<a class="sidebar-link" aria-current={page.url.pathname == mainPage.path} href={mainPage.path}>{mainPage.label}</a>
+			<a class="sidebar-link" aria-current={isCurrent(mainPage.path)} href={mainPage.path}>{mainPage.label}</a>
 		{/each}
 	</div>
 	<div class="sidebar-section">
