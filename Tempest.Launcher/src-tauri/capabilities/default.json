@@ -19,6 +19,15 @@
 					"args": true
 				}
 			]
+		},
+		"http:default",
+		{
+			"identifier": "http:allow-fetch",
+			"allow": [
+				{
+					"url": "http://localhost:5197"
+				}
+			]
 		}
 	]
 }

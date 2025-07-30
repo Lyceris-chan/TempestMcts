@@ -49,3 +49,36 @@ h1, h2, h3, h4, h5, h6 {
 #root {
 	isolation: isolate;
 }
+
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--bg-surface);
+	border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--bg-elevated);
+	border-radius: var(--border-radius);
+	border: 2px solid var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--text-muted);
+}
+
+::-webkit-scrollbar-thumb:active {
+	background: var(--text-secondary);
+}
+
+::-webkit-scrollbar-corner {
+	background: var(--bg-surface);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--bg-elevated) var(--bg-surface);
+}

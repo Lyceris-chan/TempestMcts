@@ -25,6 +25,7 @@
 	.main-area {
 		display: flex;
 		flex: 1;
+		min-height: 0;
 	}
 
 	.main-content {
@@ -33,8 +34,8 @@
 		border-bottom: 0;
 		overflow-y: auto;
 		overflow-x: hidden;
-		min-height: 100%;
 		flex: 1;
+		min-height: 0;
 		padding: var(--spacing-sm);
 	}
 </style>

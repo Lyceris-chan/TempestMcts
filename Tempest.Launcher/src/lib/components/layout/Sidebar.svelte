@@ -10,8 +10,7 @@
 			<a class="sidebar-link" aria-current={isCurrent(mainPage.path)} href={mainPage.path}>{mainPage.label}</a>
 		{/each}
 	</div>
-	<div class="sidebar-section">
-	</div>
+	<div class="sidebar-section"></div>
 </div>
 
 <style>

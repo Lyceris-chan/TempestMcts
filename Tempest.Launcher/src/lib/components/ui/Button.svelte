@@ -1,35 +1,56 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto } from "$app/navigation";
+	import Icon from "@iconify/svelte";
+	import type { IconifyIcon } from "@iconify/svelte";
 	import type { HTMLButtonAttributes } from "svelte/elements";
 
 	interface Props extends HTMLButtonAttributes {
 		kind?: "normal" | "icon";
+		icon?: IconifyIcon | string;
 		href?: string;
 	}
 
-	let { children, kind, href, ...props }: Props = $props();
+	let {
+		children,
+		kind = "normal",
+		href,
+		icon,
+		...props
+	}: Props = $props();
 </script>
 
 <button
-	class={[ kind ]}
+	class:icon={kind === "icon"}
 	onclick={href ? () => goto(href) : undefined}
 	{...props}
 >
-	{@render children?.()}
+	{#if icon}
+		<Icon icon={icon} />
+	{/if}
+	{#if children}
+		<span>
+			{@render children()}
+		</span>
+	{/if}
 </button>
 
 <style>
 	button {
+		display: inline-flex;
+		gap: var(--spacing-sm);
+		align-items: center;
+		justify-content: center;
 		background: linear-gradient(#0f92cecc, #1f72a4cc, #137da9cc);
 		box-shadow:
-			rgba(0, 0, 0, 0.6) 0px 3px 6px 0px,
-			rgba(0, 0, 0, 0.3) 0px 3px 6px 0px;
+			rgba(0, 0, 0, 0.3) 0px 3px 6px 0px,
+			rgba(0, 0, 0, 0.1) 0px 3px 6px 0px;
 		color: inherit;
 		border: 2px solid var(--color-primary);
 		border-radius: var(--border-radius);
-		padding: 0.5rem 1rem;
+		padding: var(--spacing-sm) var(--spacing-md);
 		cursor: pointer;
 		font-weight: 700;
+		font-size: 14px;
 		transition: all 0.3s var(--curve);
 	}
 
@@ -62,5 +83,11 @@
 		font-size: 1.6rem;
 		width: 2.4rem;
 		height: 2.4rem;
+		padding: 0;
+	}
+
+	button > :global(svg) {
+		font-size: 1.6rem;
+		margin-top: -1px;
 	}
 </style>

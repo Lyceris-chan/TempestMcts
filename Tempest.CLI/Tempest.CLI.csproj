@@ -19,10 +19,13 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
+      <PackageReference Include="Spectre.Console" Version="0.50.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\MarshalLib\MarshalLib.csproj" />
+      <ProjectReference Include="..\Tempest.Protocol\Tempest.Protocol.csproj" />
     </ItemGroup>
 
 </Project>
