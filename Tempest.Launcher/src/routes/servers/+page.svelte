@@ -1,25 +1,9 @@
 <script lang="ts">
 	import Button from "$lib/components/ui/Button.svelte";
-	import { Server, serverList } from "$lib/rpc";
+	import { ensureLoaded, list, refresh } from "$lib/state/servers.svelte";
 	import { onMount } from "svelte";
 
-	const list = $state<Server[]>([]);
-
-	const refresh = async () => {
-		try {
-			const serverStream = serverList.getServers({});
-
-			list.length = 0;
-
-			for await (const server of serverStream.responses) {
-				list.push(server);
-			}
-		} catch (error) {
-			console.error("Failed to fetch server list:", error);
-		}
-	};
-
-	onMount(refresh);
+	onMount(ensureLoaded);
 </script>
 
 <h1>Servers</h1>
@@ -29,13 +13,15 @@
 	<tbody>
 		{#each list as server}
 			<tr class="server-entry">
-				<th>{server.name}</th>
+				<th class="server-name">{server.name}</th>
 				<td>{server.version}</td>
 				<td>{server.map.length == 0 ? "Unknown" : server.map}</td>
 				<td>{server.players}/{server.maxPlayers}</td>
 				<td class="button-row">
-					<Button>Join</Button>
-					<Button>Favorite</Button>
+					<div class="button-container">
+						<Button>Join</Button>
+						<Button>Favorite</Button>
+					</div>
 				</td>
 			</tr>
 		{/each}
@@ -63,13 +49,25 @@
 		padding: var(--spacing-sm) var(--spacing-md);
 	}
 
+	.server-name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 100%;
+	}
+
 	.button-row {
+		width: 1%;
+		white-space: nowrap;
+	}
+
+	.button-container {
 		display: flex;
+		justify-content: flex-end;
 		gap: var(--spacing-sm);
 	}
 
-	.button-row :global(*) {
-		width: 100%;
+	.button-container :global(*) {
 		max-width: 8rem;
 	}
 </style>

@@ -20,5 +20,6 @@
 		text-align: center;
 		gap: var(--spacing-sm);
 		height: 100%;
+		width: 100%;
 	}
 </style>
