@@ -7,10 +7,122 @@
 </script>
 
 <h1>Servers</h1>
-<Button onclick={refresh}>Refresh</Button>
+<div class="header-buttons">
+	<Button onclick={refresh}>Refresh</Button>
+	<Button href="/servers/create-server">Create Server</Button>
+</div>
 
 <table class="server-list">
 	<tbody>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+		<tr class="server-entry">
+			<th class="server-name">I love kyiro Server</th>
+			<td>OB 57</td>
+			<td>Siege (Brightmarsh)</td>
+			<td>0/10</td>
+			<td class="button-row">
+				<div class="button-container">
+					<Button>Join</Button>
+					<Button>Favorite</Button>
+				</div>
+			</td>
+		</tr>
+
 		{#each list as server}
 			<tr class="server-entry">
 				<th class="server-name">{server.name}</th>
@@ -29,6 +141,11 @@
 </table>
 
 <style>
+	.header-buttons {
+		display: flex;
+		justify-content: space-between;
+		padding-right: 1.9rem;
+	}
 	table, tbody {
 		border-collapse: separate;
 		border-spacing: 0 var(--spacing-md);

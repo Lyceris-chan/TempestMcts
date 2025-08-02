@@ -1,8 +1,8 @@
-export const mainPages: { label: string; path: string }[] = [
-	{ label: "Home", path: "/" },
-	{ label: "Champions", path: "/champions" },
-	{ label: "Library", path: "/library" },
-	{ label: "Servers", path: "/servers" },
+export const mainPages: { label: string, path: string }[] = [
+    { label: "Home", path: "/" },
+    { label: "Library", path: "/library" },
+    { label: "Servers", path: "/servers" },
+    { label: "Multiplayer", path: "/multiplayer" }
 ];
 
 export const toReadablePathSegment = (segment: string) =>
