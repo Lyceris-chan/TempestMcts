@@ -8,6 +8,8 @@ DOTNET_INSTALLER_NAME="dotnet-installer.exe"
 export WINEPREFIX="$WINEPREFIX_PATH"
 
 if [ "$ENABLE_WINE_DEBUG" != "true" ]; then
+    export DXVK_LOG_LEVEL=none
+    export DXVK_LOG_PATH=/dev/null
     export WINEDEBUG=-all
 fi
 
@@ -49,7 +51,7 @@ for arg in "$@"; do
     else
         processed_arg="$arg"
     fi
-    
+
     wine_cmd_args="$wine_cmd_args \"$processed_arg\""
     processed_args_for_echo="$processed_args_for_echo \"$processed_arg\""
 done

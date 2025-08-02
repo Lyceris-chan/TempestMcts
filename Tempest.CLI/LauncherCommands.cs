@@ -6,7 +6,7 @@ namespace Tempest.CLI;
 
 internal class LauncherCommands
 {
-    public void Launch(ConsoleAppContext context, string path, bool noDefaultArgs = false, string? platform = null, string[]? dlls = null)
+    public async Task Launch([Argument] string path, ConsoleAppContext context, bool noDefaultArgs = false, string? platform = null, string[]? dll = null)
     {
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
@@ -16,6 +16,7 @@ internal class LauncherCommands
 
         var exePath = Path.GetFullPath(path);
         var defaultArgs = !noDefaultArgs;
+        var is64Bit = true;
 
         if (!Path.GetExtension(exePath).Equals(".exe", StringComparison.OrdinalIgnoreCase))
         {
@@ -30,7 +31,7 @@ internal class LauncherCommands
                 {
                     break;
                 }
-                
+
                 gameFolder = gameFolder.Parent;
             }
 
@@ -39,11 +40,12 @@ internal class LauncherCommands
                 Console.Error.WriteLine("Couldn't find the Paladins game folder (containing Binaries and Engine folders)");
                 return;
             }
-            
+
             exePath = Path.Join(gameFolder.FullName, "Binaries", platform ?? "Win64", "Paladins.exe");
 
             if (platform == "Win32" || !Environment.Is64BitProcess || !File.Exists(exePath))
             {
+                is64Bit = false;
                 exePath = Path.Join(gameFolder.FullName, "Binaries", "Win32", "Paladins.exe");
             }
 
@@ -53,20 +55,19 @@ internal class LauncherCommands
                 return;
             }
         }
-        
+
         var process = new Process();
 
         process.StartInfo.FileName = exePath;
         process.StartInfo.Environment["OPENSSL_ia32cap"] = "~0x200000200000000"; // Fix for the 64bit clients not working on 10th Gen and 11th Gen Intel CPUs
-        
+
         foreach (var arg in context.EscapedArguments)
         {
             process.StartInfo.ArgumentList.Add(arg);
         }
-        
+
         if (defaultArgs)
         {
-            process.StartInfo.ArgumentList.Add("-log");
             process.StartInfo.ArgumentList.Add("-seekfreeloadingpcconsole");
             process.StartInfo.ArgumentList.Add("-pid=402");
             process.StartInfo.ArgumentList.Add("-anon");
@@ -78,5 +79,14 @@ internal class LauncherCommands
         }
 
         process.Start();
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+
+        if (dll != null)
+        {
+            await Task.WhenAll(dll.Select(d => process.InjectLibraryAsync(d, is64Bit)));
+        }
+
+        await process.WaitForExitAsync();
     }
 }

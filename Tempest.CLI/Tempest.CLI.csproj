@@ -6,7 +6,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+        <PublishAot>true</PublishAot>
+    </PropertyGroup>
+
     <ItemGroup Condition="$([MSBuild]::IsOSUnixLike())">
         <None Include="tempest-cli.sh">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -27,5 +31,33 @@
       <ProjectReference Include="..\MarshalLib\MarshalLib.csproj" />
       <ProjectReference Include="..\Tempest.Protocol\Tempest.Protocol.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <ZigReference Include="inject\main.zig"/>
+        <ZigReference Include="inject\build.zig"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="inject\zig-out\bin\inject32.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <Link>inject32.exe</Link>
+        </None>
+        <None Include="inject\zig-out\bin\inject64.exe">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <Link>inject64.exe</Link>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ZigOutput Include="inject\zig-out\bin\inject32.exe"/>
+        <ZigOutput Include="inject\zig-out\bin\inject64.exe"/>
+    </ItemGroup>
+
+    <Target Name="BuildZigInject" BeforeTargets="Build" Inputs="@(ZigReference)" Outputs="@(ZigOutput)">
+        <Message Text="Building the zig inject project..." />
+        <Exec Command="zig build -Doptimize=ReleaseSmall" WorkingDirectory="inject" />
+    </Target>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using Grpc.Core.Interceptors;
+using Grpc.Net.Client;
 using Tempest.Protocol;
 
 namespace Tempest.CLI;
