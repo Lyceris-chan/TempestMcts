@@ -1,30 +1,163 @@
-name: Build Tempest.CLI and Upload Artifact
+name: Build Tempest.CLI
 
 on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            artifact-name: tempest-cli-windows
+            executable-extension: .exe
+          - os: ubuntu-latest
+            artifact-name: tempest-cli-linux
+            executable-extension: ""
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore Tempest.CLI/Tempest.CLI.csproj
+    - name: Setup Zig (for inject tools)
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: master
+
+    - name: Restore dependencies
+      run: dotnet restore Tempest.CLI/Tempest.CLI.csproj
+
+    - name: Build Zig inject tools
+      working-directory: Tempest.CLI/inject
+      run: zig build -Doptimize=ReleaseSmall
+
+    - name: Build .NET project (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        dotnet publish Tempest.CLI/Tempest.CLI.csproj -c Release -r win-x64 --self-contained true -p:PublishAot=true -o ./publish/win-x64
+        dotnet publish Tempest.CLI/Tempest.CLI.csproj -c Release -r win-x86 --self-contained true -p:PublishAot=true -o ./publish/win-x86
+
+    - name: Build .NET project (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        dotnet publish Tempest.CLI/Tempest.CLI.csproj -c Release -r linux-x64 --self-contained true -o ./publish/linux-x64
+
+    - name: Create Windows artifact structure
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Force -Path "./artifacts/windows-x64"
+        New-Item -ItemType Directory -Force -Path "./artifacts/windows-x86"
         
+        # Copy x64 build
+        Copy-Item -Path "./publish/win-x64/*" -Destination "./artifacts/windows-x64/" -Recurse -Force
+        
+        # Copy x86 build
+        Copy-Item -Path "./publish/win-x86/*" -Destination "./artifacts/windows-x86/" -Recurse -Force
+        
+        # Verify inject tools are present
+        if (Test-Path "./artifacts/windows-x64/inject64.exe") {
+          Write-Host "✓ inject64.exe found in x64 build"
+        } else {
+          Write-Host "✗ inject64.exe missing in x64 build"
+          exit 1
+        }
+        
+        if (Test-Path "./artifacts/windows-x86/inject32.exe") {
+          Write-Host "✓ inject32.exe found in x86 build"
+        } else {
+          Write-Host "✗ inject32.exe missing in x86 build"
+          exit 1
+        }
 
-      - name: Publish Tempest.CLI
-        run: dotnet publish Tempest.CLI/Tempest.CLI.csproj --configuration Release --output ./publish
+    - name: Create Linux artifact structure
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        mkdir -p ./artifacts/linux-x64
+        cp -r ./publish/linux-x64/* ./artifacts/linux-x64/
+        
+        # Make shell script executable
+        chmod +x ./artifacts/linux-x64/tempest-cli.sh
+        
+        # Verify shell script is present
+        if [ -f "./artifacts/linux-x64/tempest-cli.sh" ]; then
+          echo "✓ tempest-cli.sh found in Linux build"
+        else
+          echo "✗ tempest-cli.sh missing in Linux build"
+          exit 1
+        fi
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Tempest.CLI-artifact
-          path: ./publish
+    - name: Upload Windows x64 artifact
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: tempest-cli-windows-x64
+        path: ./artifacts/windows-x64/
+        retention-days: 30
+
+    - name: Upload Windows x86 artifact
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: tempest-cli-windows-x86
+        path: ./artifacts/windows-x86/
+        retention-days: 30
+
+    - name: Upload Linux x64 artifact
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: tempest-cli-linux-x64
+        path: ./artifacts/linux-x64/
+        retention-days: 30
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./downloads
+
+    - name: Create release archives
+      run: |
+        cd downloads
+        
+        # Create Windows x64 archive
+        cd tempest-cli-windows-x64
+        zip -r ../tempest-cli-windows-x64.zip .
+        cd ..
+        
+        # Create Windows x86 archive
+        cd tempest-cli-windows-x86
+        zip -r ../tempest-cli-windows-x86.zip .
+        cd ..
+        
+        # Create Linux x64 archive
+        cd tempest-cli-linux-x64
+        tar -czf ../tempest-cli-linux-x64.tar.gz .
+        cd ..
+
+    - name: Upload combined release artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tempest-cli-release
+        path: |
+          downloads/tempest-cli-windows-x64.zip
+          downloads/tempest-cli-windows-x86.zip
+          downloads/tempest-cli-linux-x64.tar.gz
+        retention-days: 90
