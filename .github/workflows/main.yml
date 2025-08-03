@@ -18,9 +18,7 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore Tempest.CLI/Tempest.CLI.csproj
-
-      - name: Build Tempest.CLI
-        run: dotnet build Tempest.CLI/Tempest.CLI.csproj --configuration Release --no-restore
+        
 
       - name: Publish Tempest.CLI
         run: dotnet publish Tempest.CLI/Tempest.CLI.csproj --configuration Release --output ./publish
