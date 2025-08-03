@@ -1,0 +1,39 @@
+name: Build Tempest.CLI and Upload Artifact
+
+on:
+  push:
+    paths:
+      - 'Tempest.CLI/**'
+      - '.github/workflows/build-and-artifact.yml'
+  pull_request:
+    paths:
+      - 'Tempest.CLI/**'
+      - '.github/workflows/build-and-artifact.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore dependencies
+        run: dotnet restore Tempest.CLI/Tempest.CLI.csproj
+
+      - name: Build Tempest.CLI
+        run: dotnet build Tempest.CLI/Tempest.CLI.csproj --configuration Release --no-restore
+
+      - name: Publish Tempest.CLI
+        run: dotnet publish Tempest.CLI/Tempest.CLI.csproj --configuration Release --output ./publish
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tempest.CLI-artifact
+          path: ./publish
