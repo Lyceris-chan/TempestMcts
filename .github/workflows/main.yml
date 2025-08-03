@@ -1,14 +1,7 @@
 name: Build Tempest.CLI and Upload Artifact
 
 on:
-  push:
-    paths:
-      - 'Tempest.CLI/**'
-      - '.github/workflows/build-and-artifact.yml'
-  pull_request:
-    paths:
-      - 'Tempest.CLI/**'
-      - '.github/workflows/build-and-artifact.yml'
+  workflow_dispatch:
 
 jobs:
   build:
